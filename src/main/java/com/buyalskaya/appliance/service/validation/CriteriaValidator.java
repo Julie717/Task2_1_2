@@ -10,7 +10,7 @@ public class CriteriaValidator {
         String groupSearchName = criteria.getGroupSearchName();
         boolean isValid = groupSearchNameValidator(groupSearchName);
         if (isValid) {
-            isValid =  Stream.of(criteria.getCriteria().keySet().toArray())
+            isValid = Stream.of(criteria.getCriteria().keySet().toArray())
                     .allMatch(c -> searchCriteriaValidator(groupSearchName, c.toString()));
         }
         return isValid;
