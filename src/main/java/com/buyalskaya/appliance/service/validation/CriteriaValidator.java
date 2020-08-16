@@ -10,19 +10,9 @@ public class CriteriaValidator {
         String groupSearchName = criteria.getGroupSearchName();
         boolean isValid = groupSearchNameValidator(groupSearchName);
         if (isValid) {
-           /* Class applianceClass=Stream.of(SearchCriteria.class.getDeclaredClasses())
-                    .filter(c->c.getSimpleName().toUpperCase().equals(groupSearchName.toUpperCase()))
-                    .findAny().get();*/
             isValid =  Stream.of(criteria.getCriteria().keySet().toArray())
                     .allMatch(c -> searchCriteriaValidator(groupSearchName, c.toString()));
-         //   SearchCriteria.Oven.CAPACITY.getClass().getDeclaredMethod("test",5)
-         /*  Stream.of(SearchCriteria.class.getDeclaredClasses())
-                    .filter(s -> s.getSimpleName().toUpperCase().equals(groupSearchName.toUpperCase()))
-                    .flatMap(s -> Stream.of(s.getDeclaredFields()))
-                    .filter(s -> s.getName().toUpperCase().equals(searchCriteria.toUpperCase()))
-                    .forEach(s->s.getClass().getDeclaredMethod("test",criteria.getCriteria().values()));*/
         }
-
         return isValid;
     }
 
