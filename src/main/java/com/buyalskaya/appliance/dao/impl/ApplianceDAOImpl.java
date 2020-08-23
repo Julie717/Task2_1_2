@@ -1,7 +1,9 @@
 package com.buyalskaya.appliance.dao.impl;
 
+import com.buyalskaya.appliance.creator.ApplianceCreator;
 import com.buyalskaya.appliance.dao.ApplianceDAO;
 import com.buyalskaya.appliance.dao.FilePathReader;
+import com.buyalskaya.appliance.entity.Appliance;
 import com.buyalskaya.appliance.entity.criteria.Criteria;
 import com.buyalskaya.appliance.exception.DaoException;
 
@@ -17,8 +19,8 @@ public class ApplianceDAOImpl implements ApplianceDAO {
     private final static String EQUALITY = "=";
 
     @Override
-    public List<String> find(Criteria criteria) throws DaoException{
-        List<String> appliances;
+    public List<Appliance> find(Criteria criteria) throws DaoException{
+        List<Appliance> appliances;
         FilePathReader filePathReader = new FilePathReader();
         String filePath = filePathReader.getFilePath();
         try (FileReader fileReader = new FileReader(filePath);
@@ -35,9 +37,8 @@ public class ApplianceDAOImpl implements ApplianceDAO {
                     searchParameter.append(oneCriteria.getValue());
                     read = read.filter(a -> a.toUpperCase().contains(searchParameter.toString().toUpperCase()));
                 }
-
             }
-            appliances = read.collect(Collectors.toList());
+            appliances = read.map(a->ApplianceCreator.createAppliance(a)).collect(Collectors.toList());
         } catch (IOException e) {
             throw new DaoException("Error in opening file " + filePath, e);
         }

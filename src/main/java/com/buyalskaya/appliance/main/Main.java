@@ -2,7 +2,7 @@ package com.buyalskaya.appliance.main;
 
 import com.buyalskaya.appliance.entity.Appliance;
 import com.buyalskaya.appliance.entity.criteria.Criteria;
-import com.buyalskaya.appliance.entity.criteria.SearchCriteria;
+import com.buyalskaya.appliance.entity.impl.Laptop;
 import com.buyalskaya.appliance.entity.impl.Oven;
 import com.buyalskaya.appliance.entity.impl.TabletPc;
 import com.buyalskaya.appliance.exception.ServiceException;
@@ -21,11 +21,10 @@ public class Main {
 
         //////////////////////////////////////////////////////////////////
 
-        Criteria criteriaOven = new Criteria(Oven.class.getSimpleName());//"Oven"
-        criteriaOven.add(SearchCriteria.Oven.CAPACITY.toString(), "3");
+        Criteria criteriaOven = new Criteria(Oven.class.getSimpleName());
+        criteriaOven.add("DEPTH", "60");
         try {
             appliances = service.find(criteriaOven);
-
             PrintApplianceInfo.print(appliances);
         } catch (ServiceException ex) {
             System.out.println(ex.getMessage());
@@ -33,11 +32,10 @@ public class Main {
         //////////////////////////////////////////////////////////////////
 
         criteriaOven = new Criteria(Oven.class.getSimpleName());
-        criteriaOven.add(SearchCriteria.Oven.HEIGHT.toString(), "200");
-        criteriaOven.add(SearchCriteria.Oven.DEPTH.toString(), "300");
+        criteriaOven.add("HEIGHT", "50");
+        criteriaOven.add("DEPTH", "300");
         try {
             appliances = service.find(criteriaOven);
-
             PrintApplianceInfo.print(appliances);
         } catch (ServiceException ex) {
             System.out.println(ex.getMessage());
@@ -45,15 +43,23 @@ public class Main {
         //////////////////////////////////////////////////////////////////
 
         Criteria criteriaTabletPC = new Criteria(TabletPc.class.getSimpleName());
-        criteriaTabletPC.add(SearchCriteria.TabletPC.COLOR.toString(), "BLUE");
-        criteriaTabletPC.add(SearchCriteria.TabletPC.DISPLAY_INCHES.toString(), "14");
-        criteriaTabletPC.add(SearchCriteria.TabletPC.MEMORY_ROM.toString(), "8000");
+        criteriaTabletPC.add("COLOR", "BLUE");
+        criteriaTabletPC.add("DISPLAY_INCHES", "14");
+        criteriaTabletPC.add("MEMORY_ROM", "8000");
         try {
-            appliances = service.find(criteriaTabletPC);// find(Object...obj)
+            appliances = service.find(criteriaTabletPC);
+            PrintApplianceInfo.print(appliances);
+        } catch (ServiceException ex) {
+            System.out.println(ex.getMessage());
+        }
+        //////////////////////////////////////////////////////////////////
+
+        Criteria criteriaAllLaptop = new Criteria(Laptop.class.getSimpleName());
+        try {
+            appliances = service.find(criteriaAllLaptop);
             PrintApplianceInfo.print(appliances);
         } catch (ServiceException ex) {
             System.out.println(ex.getMessage());
         }
     }
-
 }

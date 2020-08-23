@@ -1,10 +1,12 @@
 package com.buyalskaya.appliance.entity.impl;
 
 import com.buyalskaya.appliance.entity.ElectricalAppliance;
+import com.buyalskaya.appliance.entity.applianceparameter.SpeakersParameter;
 
 import java.util.StringJoiner;
 
 public class Speakers extends ElectricalAppliance {
+    private final static String REGEX_DASH = "-";
     private int numberOfSpeakers;
     private double startFrequencyRange;
     private double endFrequencyRange;
@@ -40,6 +42,32 @@ public class Speakers extends ElectricalAppliance {
 
     public void setCordLength(double cordLength) {
         this.cordLength = cordLength;
+    }
+
+    @Override
+    public void setParameter(String parameterName, String parameterValue) {
+        SpeakersParameter speakersParameter = SpeakersParameter.valueOf(parameterName.toUpperCase());
+        switch (speakersParameter) {
+            case POWER_CONSUMPTION:
+                double powerConsumption = Double.parseDouble(parameterValue);
+                setPowerConsumption(powerConsumption);
+                break;
+            case NUMBER_OF_SPEAKERS:
+                int numberOfSpeakers = Integer.parseInt(parameterValue);
+                setNumberOfSpeakers(numberOfSpeakers);
+                break;
+            case FREQUENCY_RANGE:
+                String[] frequencies = parameterValue.split(REGEX_DASH);
+                double startFrequencyRange = Double.parseDouble(frequencies[0]);
+                double endFrequencyRange = Double.parseDouble(frequencies[1]);
+                setStartFrequencyRange(startFrequencyRange);
+                setEndFrequencyRange(endFrequencyRange);
+                break;
+            case CORD_LENGTH:
+                int cordLength = Integer.parseInt(parameterValue);
+                setCordLength(cordLength);
+                break;
+        }
     }
 
     @Override

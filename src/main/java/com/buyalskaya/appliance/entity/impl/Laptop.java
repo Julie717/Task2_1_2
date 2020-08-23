@@ -2,6 +2,7 @@ package com.buyalskaya.appliance.entity.impl;
 
 import com.buyalskaya.appliance.entity.ComputerAppliance;
 import com.buyalskaya.appliance.entity.ComputerOperationSystem;
+import com.buyalskaya.appliance.entity.applianceparameter.LaptopParameter;
 
 import java.util.StringJoiner;
 
@@ -32,6 +33,38 @@ public class Laptop extends ComputerAppliance {
 
     public void setCpu(double cpu) {
         this.cpu = cpu;
+    }
+
+    @Override
+    public void setParameter(String parameterName, String parameterValue) {
+        LaptopParameter laptopParameter=LaptopParameter.valueOf(parameterName.toUpperCase());
+        switch (laptopParameter) {
+            case BATTERY_CAPACITY:
+                double batteryCapacity = Double.parseDouble(parameterValue);
+                setBatteryCapacity(batteryCapacity);
+                break;
+            case OS:
+                ComputerOperationSystem os = ComputerOperationSystem
+                        .valueOf(parameterValue.toUpperCase());
+                setOperationSystem(os);
+                break;
+            case MEMORY_ROM:
+                int memoryRom = Integer.parseInt(parameterValue);
+                setMemoryRom(memoryRom);
+                break;
+            case SYSTEM_MEMORY:
+                int systemRom = Integer.parseInt(parameterValue);
+                setSystemMemory(systemRom);
+                break;
+            case CPU:
+                double cpu = Double.parseDouble(parameterValue);
+                setCpu(cpu);
+                break;
+            case DISPLAY_INCHES:
+                int displayInches = Integer.parseInt(parameterValue);
+                setDisplayInches(displayInches);
+                break;
+        }
     }
 
     @Override

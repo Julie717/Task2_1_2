@@ -1,6 +1,7 @@
 package com.buyalskaya.appliance.entity.impl;
 
 import com.buyalskaya.appliance.entity.KitchenAppliance;
+import com.buyalskaya.appliance.entity.applianceparameter.OvenParameter;
 
 import java.util.StringJoiner;
 
@@ -22,6 +23,37 @@ public class Oven extends KitchenAppliance {
 
     public void setCapacity(double capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public void setParameter(String parameterName, String parameterValue) {
+        OvenParameter ovenParameter = OvenParameter.valueOf(parameterName.toUpperCase());
+        switch (ovenParameter) {
+            case POWER_CONSUMPTION:
+                double powerConsumption = Double.parseDouble(parameterValue);
+                setPowerConsumption(powerConsumption);
+                break;
+            case WEIGHT:
+                double weight = Double.parseDouble(parameterValue);
+                setWeight(weight);
+                break;
+            case CAPACITY:
+                double capacity = Double.parseDouble(parameterValue);
+                setCapacity(capacity);
+                break;
+            case DEPTH:
+                double depth = Double.parseDouble(parameterValue);
+                setDepth(depth);
+                break;
+            case HEIGHT:
+                double height = Double.parseDouble(parameterValue);
+                setHeight(height);
+                break;
+            case WIDTH:
+                double width = Double.parseDouble(parameterValue);
+                setWidth(width);
+                break;
+        }
     }
 
     @Override

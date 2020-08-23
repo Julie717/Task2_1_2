@@ -1,37 +1,44 @@
 package com.buyalskaya.appliance.service.validation;
 
+import com.buyalskaya.appliance.entity.ApplianceType;
 import com.buyalskaya.appliance.entity.criteria.Criteria;
-import com.buyalskaya.appliance.entity.criteria.SearchCriteria;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Map;
 
 public class CriteriaValidator {
+
     public static boolean criteriaValidator(Criteria criteria) {
         String groupSearchName = criteria.getGroupSearchName();
         boolean isValid = groupSearchNameValidator(groupSearchName);
         if (isValid) {
-            isValid = Stream.of(criteria.getCriteria().keySet().toArray())
-                    .allMatch(c -> searchCriteriaValidator(groupSearchName, c.toString()));
+            Map<String, String> criteriaParameters = criteria.getCriteria();
+            boolean isParameterValid;
+            for (Map.Entry criteriaParameter : criteriaParameters.entrySet()) {
+                isParameterValid = searchCriteriaValidator(groupSearchName,
+                        criteriaParameter.getKey().toString(), criteriaParameter.getValue().toString());
+                if (!isParameterValid) {
+                    return false;
+                }
+            }
         }
         return isValid;
     }
 
-    public static boolean groupSearchNameValidator(String groupSearchName) {
+    private static boolean groupSearchNameValidator(String groupSearchName) {
         boolean isValid = false;
-        if (groupSearchName != null) {
-            isValid = Stream.of(SearchCriteria.class.getDeclaredClasses())
-                    .anyMatch(s -> s.getSimpleName().toUpperCase().equals(groupSearchName.toUpperCase()));
+        if (groupSearchName != null && !groupSearchName.isEmpty()) {
+            isValid = Arrays.stream(ApplianceType.values())
+                    .anyMatch(o -> o.name().equals(groupSearchName.toUpperCase()));
         }
         return isValid;
     }
 
-    public static boolean searchCriteriaValidator(String groupSearchName, String searchCriteria) {
-        boolean isValid = false;
-        if (searchCriteria != null) {
-            isValid = Stream.of(SearchCriteria.class.getDeclaredClasses())
-                    .filter(s -> s.getSimpleName().toUpperCase().equals(groupSearchName.toUpperCase()))
-                    .flatMap(s -> Stream.of(s.getDeclaredFields()))
-                    .anyMatch(s -> s.getName().toUpperCase().equals(searchCriteria.toUpperCase()));
+    private static boolean searchCriteriaValidator(String groupSearchName, String attributeName, String attributeValue) {
+        boolean isValid = Arrays.stream(ApplianceType.valueOf(groupSearchName.toUpperCase()).getParameter())
+                .anyMatch(o -> o.name().equals(attributeName.toUpperCase()));
+        if (isValid) {
+            isValid = ApplianceType.valueOf(groupSearchName.toUpperCase()).test(attributeName, attributeValue);
         }
         return isValid;
     }

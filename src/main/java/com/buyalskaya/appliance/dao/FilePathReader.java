@@ -14,7 +14,7 @@ public class FilePathReader {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("property.fileProperties");
             filePath = resourceBundle.getString(FILE_PATH);
         } catch (MissingResourceException ex) {
-            throw new DaoException("Properties file is missing" ,ex);
+            throw new DaoException("Properties file is missing", ex);
         }
     }
 

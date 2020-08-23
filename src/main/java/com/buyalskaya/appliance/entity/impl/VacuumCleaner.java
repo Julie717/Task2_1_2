@@ -2,6 +2,7 @@ package com.buyalskaya.appliance.entity.impl;
 
 import com.buyalskaya.appliance.entity.ElectricalAppliance;
 import com.buyalskaya.appliance.entity.FilterType;
+import com.buyalskaya.appliance.entity.applianceparameter.VacuumCleanerParameter;
 
 import java.util.StringJoiner;
 
@@ -50,6 +51,35 @@ public class VacuumCleaner extends ElectricalAppliance {
 
     public void setCleaningWidth(double cleaningWidth) {
         this.cleaningWidth = cleaningWidth;
+    }
+
+    @Override
+    public void setParameter(String parameterName, String parameterValue) {
+        VacuumCleanerParameter vacuumCleanerParameter = VacuumCleanerParameter.valueOf(parameterName.toUpperCase());
+        switch (vacuumCleanerParameter) {
+            case POWER_CONSUMPTION:
+                double powerConsumption = Double.parseDouble(parameterValue);
+                setPowerConsumption(powerConsumption);
+                break;
+            case FILTER_TYPE:
+                FilterType filterType = FilterType.valueOf(parameterValue.toUpperCase());
+                setFilterType(filterType);
+                break;
+            case BAG_TYPE:
+                setBagType(parameterValue);
+                break;
+            case WAND_TYPE:
+                setWandType(parameterValue);
+                break;
+            case MOTOR_SPEED_REGULATION:
+                double motorSpeedRegulation = Double.parseDouble(parameterValue);
+                setMotorSpeedRegulation(motorSpeedRegulation);
+                break;
+            case CLEANING_WIDTH:
+                double cleaningWidth = Double.parseDouble(parameterValue);
+                setCleaningWidth(cleaningWidth);
+                break;
+        }
     }
 
     @Override
