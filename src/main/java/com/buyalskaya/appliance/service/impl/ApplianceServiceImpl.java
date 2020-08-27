@@ -15,15 +15,13 @@ public class ApplianceServiceImpl implements ApplianceService {
 
     @Override
     public List<Appliance> find(Criteria criteria) throws ServiceException {
-        if (!CriteriaValidator.criteriaValidator(criteria)) {
+        CriteriaValidator criteriaValidator=new CriteriaValidator();
+        if (!criteriaValidator.isCriteriaValid(criteria)) {
             throw new ServiceException("Incorrect criteria");
         }
         try {
             ApplianceDAO applianceDAO = DAOFactory.getInstance().getApplianceDAO();
             List<Appliance> appliances = applianceDAO.find(criteria);
-            if (appliances == null || appliances.isEmpty()) {
-                throw new ServiceException("Data isn't found");
-            }
             return appliances;
         } catch (DaoException ex) {
             throw new ServiceException("DaoException was found: ", ex);

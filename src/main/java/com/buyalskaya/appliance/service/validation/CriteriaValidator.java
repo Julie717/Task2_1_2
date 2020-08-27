@@ -8,14 +8,14 @@ import java.util.Map;
 
 public class CriteriaValidator {
 
-    public static boolean criteriaValidator(Criteria criteria) {
+    public boolean isCriteriaValid(Criteria criteria) {
         String groupSearchName = criteria.getGroupSearchName();
-        boolean isValid = groupSearchNameValidator(groupSearchName);
+        boolean isValid = isGroupSearchNameValid(groupSearchName);
         if (isValid) {
             Map<String, String> criteriaParameters = criteria.getCriteria();
             boolean isParameterValid;
             for (Map.Entry criteriaParameter : criteriaParameters.entrySet()) {
-                isParameterValid = searchCriteriaValidator(groupSearchName,
+                isParameterValid = isSearchCriteriaValid(groupSearchName,
                         criteriaParameter.getKey().toString(), criteriaParameter.getValue().toString());
                 if (!isParameterValid) {
                     return false;
@@ -25,7 +25,7 @@ public class CriteriaValidator {
         return isValid;
     }
 
-    private static boolean groupSearchNameValidator(String groupSearchName) {
+    private boolean isGroupSearchNameValid(String groupSearchName) {
         boolean isValid = false;
         if (groupSearchName != null && !groupSearchName.isEmpty()) {
             isValid = Arrays.stream(ApplianceType.values())
@@ -34,7 +34,7 @@ public class CriteriaValidator {
         return isValid;
     }
 
-    private static boolean searchCriteriaValidator(String groupSearchName, String attributeName, String attributeValue) {
+    private boolean isSearchCriteriaValid(String groupSearchName, String attributeName, String attributeValue) {
         boolean isValid = Arrays.stream(ApplianceType.valueOf(groupSearchName.toUpperCase()).getParameter())
                 .anyMatch(o -> o.name().equals(attributeName.toUpperCase()));
         if (isValid) {
