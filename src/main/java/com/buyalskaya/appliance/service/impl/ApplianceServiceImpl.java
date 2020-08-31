@@ -7,7 +7,7 @@ import com.buyalskaya.appliance.entity.criteria.Criteria;
 import com.buyalskaya.appliance.exception.DaoException;
 import com.buyalskaya.appliance.exception.ServiceException;
 import com.buyalskaya.appliance.service.ApplianceService;
-import com.buyalskaya.appliance.service.validation.CriteriaValidator;
+import com.buyalskaya.appliance.service.validation.ValidatorFactory;
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class ApplianceServiceImpl implements ApplianceService {
 
     @Override
     public List<Appliance> find(Criteria criteria) throws ServiceException {
-        CriteriaValidator criteriaValidator=new CriteriaValidator();
-        if (!criteriaValidator.isCriteriaValid(criteria)) {
+        if (!ValidatorFactory.getInstance().getCriteriaValidator().isCriteriaValid(criteria)) {
             throw new ServiceException("Incorrect criteria");
         }
         try {

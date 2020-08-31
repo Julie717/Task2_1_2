@@ -1,50 +1,44 @@
 package com.buyalskaya.appliance.entity.applianceparameter;
 
-import com.buyalskaya.appliance.service.validation.ValueValidator;
+import com.buyalskaya.appliance.service.validation.ValidatorFactory;
 
 import java.util.function.Predicate;
 
 public enum LaptopParameter implements Predicate<String> {
-    BATTERY_CAPACITY{
+    BATTERY_CAPACITY {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isBatteryCapacityValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isBatteryCapacityValid(value);
         }
     },
-    OS{
+    OS {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isOsValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isOsValid(value);
         }
     },
-    MEMORY_ROM{
+    MEMORY_ROM {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isMemoryRomValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isMemoryRomValid(value);
         }
     },
-    SYSTEM_MEMORY{
+    SYSTEM_MEMORY {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isSystemMemoryValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isSystemMemoryValid(value);
         }
     },
-    CPU{
+    CPU {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isCpuValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isCpuValid(value);
         }
     },
-    DISPLAY_INCHES{
+    DISPLAY_INCHES {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isDisplayInchesValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isDisplayInchesValid(value);
         }
     }
 }

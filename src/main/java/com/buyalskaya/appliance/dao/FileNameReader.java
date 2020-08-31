@@ -5,20 +5,20 @@ import com.buyalskaya.appliance.exception.DaoException;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class FilePathReader {
-    private static final String FILE_PATH = "filePath";
-    private String filePath;
+public class FileNameReader {
+    private static final String FILE_PATH = "fileName";
+    private String fileName;
 
-    public FilePathReader() throws DaoException {
+    public FileNameReader() throws DaoException {
         try {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("property.fileProperties");
-            filePath = resourceBundle.getString(FILE_PATH);
+            fileName = resourceBundle.getString(FILE_PATH);
         } catch (MissingResourceException ex) {
             throw new DaoException("Properties file is missing", ex);
         }
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFileName() {
+        return fileName;
     }
 }

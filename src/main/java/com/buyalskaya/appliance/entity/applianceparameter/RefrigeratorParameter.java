@@ -1,50 +1,44 @@
 package com.buyalskaya.appliance.entity.applianceparameter;
 
-import com.buyalskaya.appliance.service.validation.ValueValidator;
+import com.buyalskaya.appliance.service.validation.ValidatorFactory;
 
 import java.util.function.Predicate;
 
 public enum RefrigeratorParameter implements Predicate<String> {
-    POWER_CONSUMPTION{
+    POWER_CONSUMPTION {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isPowerConsumptionValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isPowerConsumptionValid(value);
         }
     },
-    WEIGHT{
+    WEIGHT {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isWeightValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isWeightValid(value);
         }
     },
-    FREEZER_CAPACITY{
+    FREEZER_CAPACITY {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isFreezerCapacityValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isFreezerCapacityValid(value);
         }
     },
-    OVERALL_CAPACITY{
+    OVERALL_CAPACITY {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isOverallCapacityValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isOverallCapacityValid(value);
         }
     },
-    HEIGHT{
+    HEIGHT {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isHeightValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isHeightValid(value);
         }
     },
-    WIDTH{
+    WIDTH {
         @Override
         public boolean test(String value) {
-            ValueValidator valueValidator = new ValueValidator();
-            return valueValidator.isWidthValid(value);
+            return ValidatorFactory.getInstance().getValueValidator().isWidthValid(value);
         }
     }
 }
