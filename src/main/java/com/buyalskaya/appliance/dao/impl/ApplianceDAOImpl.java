@@ -7,13 +7,9 @@ import com.buyalskaya.appliance.entity.Appliance;
 import com.buyalskaya.appliance.entity.criteria.Criteria;
 import com.buyalskaya.appliance.exception.DaoException;
 
-import javax.naming.Context;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
